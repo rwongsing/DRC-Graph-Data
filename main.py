@@ -49,7 +49,8 @@ class Entry:
             self.headset = int(sheet2['N' + r].value)
         # Techie
         if(sheet2['O' + r].value != None and sheet2['O' + r].value != 'N/A'):
-            self.techie = str(sheet2['O' + r].value)
+            t = str(sheet2['O' + r].value)
+            self.techie = t.strip()
         # Date
         if(sheet2['P' + r].value != None and sheet2['P' + r].value != 'N/A' and sheet2['P' + r].value != '#VALUE!'):
             x = sheet2['P' + r].value
@@ -61,11 +62,10 @@ totalNotebook = 0
 totalHeadset = 0
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 monthC = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-techies = ['Antonio', 'Becky', 'Chris', 'Matthew', 'Robert', 'Sam', 'Sarah', 'Stephanie']
+techies = ['Antonio', 'Becky', 'Chris', 'Matthew', 'Robert', 'Sam', 'Sarah', 'Stephanie', 'Samantha']
 techieC = [0, 0, 0, 0, 0, 0, 0, 0]
 
 while i < 1000:
-    print(i)
     ent = Entry(i)
     ent.get_counts()
 
@@ -74,7 +74,7 @@ while i < 1000:
     totalHeadset += ent.headset
     if(ent.month != 0):
         monthC[ent.month - 1] += 1
-
+    
     if ent.techie in techies:
         if(ent.techie == 'Antonio'):
             techieC[0] += 1
@@ -102,22 +102,23 @@ print(techieC)
 
 # Make graphs using data
 # Bar graph showing techie
-color = ['#009ACD', '#ADD8E6', '#63D1F4']
+color = ['#004C6D', '#145C80', '#246D94', '#327EA9', '#4090BE', '#4EA2D3', '#5CB4E9', '#6AC7FF']
 trace = go.Bar(
-    x = techies,
-    y = techieC,
+    y = techies,
+    x = techieC,
+    orientation = 'h',
     marker = dict(
-        color = color
+        color = color,
     )
 )
 
 data = [trace]
 
 layout = go.Layout(
-    title = '2019 Techie Rates',
+    title = '2019 Techie Check-Out Rates',
     font = dict(color='#909090'),
     xaxis = dict(
-        title = 'Type',
+        title = 'Number Checked-Out',
         titlefont = dict(
             family = 'Arial, sans-serif',
             size = 12,
@@ -131,8 +132,8 @@ layout = go.Layout(
         ),
     ),
     yaxis = dict(
-        range = [0, 225],
-        title = 'Number of Checked-Out',
+        range = [-1, 8],
+        title = 'Techie',
         titlefont = dict(
             family = 'Arial, sans-serif',
             size = 12,
@@ -144,11 +145,11 @@ layout = go.Layout(
             size = 12,
             color = '#909090'
         )
-    )
+    ),
 )
 
-fig1 = go.Figure(data = data, layout = layout)
-fig1.show()
+fig2 = go.Figure(data = data, layout = layout)
+fig2.show()
 
 # Bar graph showing # given out per year
 color = ['#009ACD', '#ADD8E6', '#63D1F4']
@@ -197,11 +198,12 @@ layout = go.Layout(
 )
 
 fig1 = go.Figure(data = data, layout = layout)
-fig1.show()
+#fig1.show()
 
 
 # Line graph showing month progression
 # Animated bar graph showing progression
 
 # Save graphs as pdf
-fig1.write_image("graphs/fig1.pdf")
+fig1.write_image("graphs/nums.pdf")
+fig2.write_image("graphs/techies.pdf")
