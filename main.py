@@ -95,12 +95,54 @@ while i < 1000:
 
     i += 1
 
-print(totalPen, totalNotebook, totalHeadset)
-print(monthC)
-print(techieC)
-
-
 # Make graphs using data
+
+# Line graph showing month distribution
+fig3 = go.Figure()
+fig3.add_trace(
+    go.Scatter(
+        x = months,
+        y = monthC,
+        mode = 'lines',
+        name = 'lines',
+        line_color = 'rgb(0,176,246)',
+    )
+)
+
+fig3.update_layout(
+    title = 'Check-Out Distribution by Month',
+    font = dict(color='#909090'),
+    xaxis = dict(
+        title = 'Month',
+        titlefont = dict(
+            family = 'Arial, sans-serif',
+            size = 12,
+            color = '#909090'
+        ),
+        showticklabels = True,
+        tickfont = dict(
+            family = 'Arial, sans-serif',
+            size = 12,
+            color = '#909090'
+        ),
+    ),
+    yaxis = dict(
+        range = [0, 30],
+        title = 'Number Checked-Out',
+        titlefont = dict(
+            family = 'Arial, sans-serif',
+            size = 12,
+            color = '#909090',
+        ),
+        showticklabels = True,
+        tickfont = dict(
+            family = 'Arial, sans-serif',
+            size = 12,
+            color = '#909090'
+        )
+    ),
+)
+
 # Bar graph showing techie
 color = ['#004C6D', '#145C80', '#246D94', '#327EA9', '#4090BE', '#4EA2D3', '#5CB4E9', '#6AC7FF']
 trace = go.Bar(
@@ -149,7 +191,6 @@ layout = go.Layout(
 )
 
 fig2 = go.Figure(data = data, layout = layout)
-fig2.show()
 
 # Bar graph showing # given out per year
 color = ['#009ACD', '#ADD8E6', '#63D1F4']
@@ -198,8 +239,6 @@ layout = go.Layout(
 )
 
 fig1 = go.Figure(data = data, layout = layout)
-#fig1.show()
-
 
 # Line graph showing month progression
 # Animated bar graph showing progression
@@ -207,3 +246,11 @@ fig1 = go.Figure(data = data, layout = layout)
 # Save graphs as pdf
 fig1.write_image("graphs/nums.pdf")
 fig2.write_image("graphs/techies.pdf")
+fig3.write_image("graphs/months.pdf")
+
+print('Success')
+
+# Opens graphs in a local browser
+fig1.show()
+fig2.show()
+fig3.show()
