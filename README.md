@@ -11,3 +11,4 @@ Includes:
 Graphs:
   - Yearly Total (Bar Graph)
   - Breakdown by Techie (Horizontal Bar Graph)
+  - Distribution by Month (Line Graph)
